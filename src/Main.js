@@ -1,7 +1,10 @@
-import { onEditField } from "./store/noteSlice";
+import { onEditField, onAddNote } from "./store/noteSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export const Main = ({ activeNote, onUpdateNote }) => {
+  const [title, setTitle] = useState("");
+
   const dispatch = useDispatch();
   // const onEditField = (key, value) => {
   //   onUpdateNote({
@@ -16,13 +19,17 @@ export const Main = ({ activeNote, onUpdateNote }) => {
 
   return (
     <div className="app-main">
+      <button
+        onClick={() => dispatch(onAddNote({ title: title, desc: "sdfsdfsad" }))}
+      >
+        Save
+      </button>
       <div className="app-main-note-edit">
         <input
           type="text"
-          // id="title"
-          // value={activeNote.title}
+          value={title}
           onChange={(e) => {
-            dispatch(onEditField(e.target.value));
+            setTitle(e.target.value);
           }}
           autoFocus
         />

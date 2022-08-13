@@ -9,13 +9,13 @@ const noteSlice = createSlice({
   },
   reducers: {
     onAddNote(state, action) {
-      // console.log(state);
-      // console.log(action);
+      console.log(state);
+      console.log(action);
 
       state.notes.push({
         id: uuidv4(),
-        title: "untitled note",
-        body: "",
+        title: action.payload.title,
+        body: action.payload.body,
         lastModified: Date.now(),
       });
     },
@@ -24,8 +24,8 @@ const noteSlice = createSlice({
     getActiveNote(state, action) {},
     onEditField(state, action) {
       state.value = action.payload;
-      console.log(state);
-      console.log(action);
+      // console.log(state);
+      // console.log(action);
     },
   },
 });
