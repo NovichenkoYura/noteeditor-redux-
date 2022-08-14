@@ -22,7 +22,7 @@ export const Sidebar = () => {
               <strong>{note.title && note.title.substr(0, 120) + "..."}</strong>
               {/* <button onClick={() => onDeleteNote(note.id)}>Delete</button> */}
             </div>
-            <p>{note.body && note.body.substr(0, 500) + "..."}</p>
+            <p>{note.description && note.description.substr(0, 500) + "..."}</p>
             <small className="note-meta">
               Last modified{" "}
               {new Date(note.lastModified).toLocaleDateString("en-GB", {
