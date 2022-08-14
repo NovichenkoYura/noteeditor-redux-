@@ -7,32 +7,9 @@ export const Main = ({ activeNote, onUpdateNote }) => {
   const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
-  // const onEditField = (key, value) => {
-  //   onUpdateNote({
-  //     ...activeNote,
-  //     [key]: value,
-  //     lastModified: Date.now(),
-  //   });
-  // };
-
-  // if (!activeNote)
-  //   return <div className="no-active-note">No note selected</div>;
-
-  // console.log(useSelector((state) => state.notes));
 
   return (
     <div className="app-main">
-      <button
-        onClick={() =>
-          dispatch(
-            onAddNote({ title: title, description: description }),
-            setDescription(""),
-            setTitle("")
-          )
-        }
-      >
-        Save
-      </button>
       <div className="app-main-note-edit">
         <input
           type="text"
@@ -51,11 +28,18 @@ export const Main = ({ activeNote, onUpdateNote }) => {
             setDescription(e.target.value);
           }}
         />
+        <button
+          onClick={() =>
+            dispatch(
+              onAddNote({ title: title, description: description }),
+              setDescription(""),
+              setTitle("")
+            )
+          }
+        >
+          Save
+        </button>
       </div>
-      {/* <div className="app-main-note-preview">
-        <h1 className="preview-title">{activeNote.title}</h1>
-        <div className="markdown-preview">{activeNote.body}</div>
-      </div> */}
     </div>
   );
 };

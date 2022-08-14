@@ -18,11 +18,12 @@ const noteSlice = createSlice({
     },
     onUpdateNote(state, action) {},
     onDeleteNote(state, action) {},
-    getActiveNote(state, action) {},
+    getActiveNote(state, action) {
+      state.value = action.payload;
+      console.log(action);
+    },
     onEditField(state, action) {
       state.value = action.payload;
-      console.log(state.value);
-      // console.log(action);
     },
   },
 });

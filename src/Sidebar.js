@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-// import { onAddNote, activeNote, setActiveNote, onDeleteNote } from "./App";
-import { onAddNote } from "./store/noteSlice";
+import { onAddNote, onDeleteNote } from "./store/noteSlice";
+import { useState } from "react";
+
 export const Sidebar = () => {
-  //   const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
   const notes = useSelector((state) => state.notes.notes);
   const dispatch = useDispatch();
+  const [activeNote, setActiveNote] = useState(false);
 
   return (
     <div className="app-sidebar">
@@ -15,14 +16,15 @@ export const Sidebar = () => {
       <div className="app-sidebar-notes">
         {notes.map((note) => (
           <div
-          // className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-          // onClick={() => setActiveNote(note.id)}
+            className={`app-sidebar-note ${note.id === activeNote && "active"}`}
+            onClick={() => setActiveNote(note.id)}
           >
             <div className="sidebar-note-title">
               <strong>{note.title && note.title.substr(0, 120) + "..."}</strong>
-              {/* <button onClick={() => onDeleteNote(note.id)}>Delete</button> */}
+              <button onClick={() => onDeleteNote(note.id)}>Delete</button>
             </div>
             <p>{note.description && note.description.substr(0, 500) + "..."}</p>
+
             <small className="note-meta">
               Last modified{" "}
               {new Date(note.lastModified).toLocaleDateString("en-GB", {
