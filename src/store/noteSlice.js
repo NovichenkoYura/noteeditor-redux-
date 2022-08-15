@@ -6,6 +6,7 @@ const noteSlice = createSlice({
   initialState: {
     notes: [],
     value: "",
+    currentEditingItem: [],
   },
   reducers: {
     onAddNote(state, action) {
@@ -16,23 +17,16 @@ const noteSlice = createSlice({
         lastModified: Date.now(),
       });
     },
-    onUpdateNote(state, action) {},
-    onDeleteNote(state, action) {},
-    getActiveNote(state, action) {
-      state.value = action.payload;
-      console.log(action);
+
+    onDeleteNote(state, action) {
+      state.notes = state.notes.filter((note) => note.id !== action.payload);
     },
-    onEditField(state, action) {
-      state.value = action.payload;
+
+    onCurrentItemInfo(state, action) {
+      state.currentEditingItem = action.payload;
     },
   },
 });
 
-export const {
-  onAddNote,
-  onUpdateNote,
-  onDeleteNote,
-  getActiveNote,
-  onEditField,
-} = noteSlice.actions;
+export const { onAddNote, onDeleteNote, onCurrentItemInfo } = noteSlice.actions;
 export default noteSlice.reducer;

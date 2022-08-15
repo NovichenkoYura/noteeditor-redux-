@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { onAddNote, onDeleteNote } from "./store/noteSlice";
+import { onAddNote, onDeleteNote, onCurrentItemInfo } from "./store/noteSlice";
 import { useState } from "react";
 
 export const Sidebar = () => {
@@ -17,11 +17,21 @@ export const Sidebar = () => {
         {notes.map((note) => (
           <div
             className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-            onClick={() => setActiveNote(note.id)}
+            onClick={() =>
+              dispatch(
+                onCurrentItemInfo({
+                  id: note.id,
+                  title: note.title,
+                  description: note.description,
+                })
+              )
+            }
           >
             <div className="sidebar-note-title">
               <strong>{note.title && note.title.substr(0, 120) + "..."}</strong>
-              <button onClick={() => onDeleteNote(note.id)}>Delete</button>
+              <button onClick={() => dispatch(onDeleteNote(note.id))}>
+                Delete
+              </button>
             </div>
             <p>{note.description && note.description.substr(0, 500) + "..."}</p>
 

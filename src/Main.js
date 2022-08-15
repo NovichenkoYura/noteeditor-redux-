@@ -1,12 +1,25 @@
-import { onEditField, onAddNote } from "./store/noteSlice";
+import { onAddNote } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
-export const Main = ({ activeNote, onUpdateNote }) => {
+export const Main = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const activeEditNote = useSelector((state) => state.notes.currentEditingItem);
+  console.log(activeEditNote.title, activeEditNote.description);
   const dispatch = useDispatch();
+
+  const onSaveBtnClick = () => {
+    dispatch(onAddNote({ title: title, description: description }));
+    setDescription("");
+    setTitle("");
+  };
+
+  // if (activeEditNote !== []) {
+  //   setTitle(activeEditNote.title);
+  //   setDescription(activeEditNote.description);
+  // }
 
   return (
     <div className="app-main">
@@ -28,17 +41,7 @@ export const Main = ({ activeNote, onUpdateNote }) => {
             setDescription(e.target.value);
           }}
         />
-        <button
-          onClick={() =>
-            dispatch(
-              onAddNote({ title: title, description: description }),
-              setDescription(""),
-              setTitle("")
-            )
-          }
-        >
-          Save
-        </button>
+        <button onClick={onSaveBtnClick}>Save</button>
       </div>
     </div>
   );
