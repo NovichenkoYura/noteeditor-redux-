@@ -1,13 +1,12 @@
-import { onAddNote } from "./store/noteSlice";
+import { onAddNote, onReplaceEditNote } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Main = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const activeEditNote = useSelector((state) => state.notes.currentEditingItem);
-  console.log(activeEditNote.title, activeEditNote.description);
   const dispatch = useDispatch();
 
   const onSaveBtnClick = () => {
@@ -16,10 +15,16 @@ export const Main = () => {
     setTitle("");
   };
 
-  // if (activeEditNote !== []) {
-  //   setTitle(activeEditNote.title);
-  //   setDescription(activeEditNote.description);
-  // }
+  const onUpdtBtnClick = () => {
+    dispatch(onReplaceEditNote({ title: title, description: description }));
+  };
+
+  useEffect(() => {
+    setTitle(activeEditNote.title);
+    setDescription(activeEditNote.description);
+  }, [activeEditNote]);
+
+  useEffect(() => {});
 
   return (
     <div className="app-main">
@@ -42,6 +47,7 @@ export const Main = () => {
           }}
         />
         <button onClick={onSaveBtnClick}>Save</button>
+        <button onClick={onUpdtBtnClick}>Update</button>
       </div>
     </div>
   );

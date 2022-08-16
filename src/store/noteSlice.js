@@ -25,8 +25,11 @@ const noteSlice = createSlice({
     onCurrentItemInfo(state, action) {
       state.currentEditingItem = action.payload;
     },
+
+    onReplaceEditNote(state, action) {},
   },
 });
 
-export const { onAddNote, onDeleteNote, onCurrentItemInfo } = noteSlice.actions;
+export const { onAddNote, onDeleteNote, onCurrentItemInfo, onReplaceEditNote } =
+  noteSlice.actions;
 export default noteSlice.reducer;
