@@ -7,6 +7,13 @@ export const Main = () => {
   const [description, setDescription] = useState("");
 
   const activeEditNote = useSelector((state) => state.notes.currentEditingItem);
+  const notes = useSelector((state) => state.notes.notes);
+
+  const activeNotes = notes.find((note) => note.id === activeEditNote.id);
+  console.log(activeNotes);
+  console.log(activeNotes.title);
+  console.log(activeNotes.description);
+
   const dispatch = useDispatch();
 
   const onSaveBtnClick = () => {
@@ -15,16 +22,22 @@ export const Main = () => {
     setTitle("");
   };
 
-  const onUpdtBtnClick = () => {
-    dispatch(onReplaceEditNote({ title: title, description: description }));
-  };
+  // const onUpdtBtnClick = () => {
+  //   dispatch(
+  //     onReplaceEditNote({
+  //       title: title,
+  //       description: description,
+  //       id: activeEditNote.id,
+  //     })
+  //   );
+  //   setDescription("");
+  //   setTitle("");
+  // };
 
   useEffect(() => {
-    setTitle(activeEditNote.title);
-    setDescription(activeEditNote.description);
-  }, [activeEditNote]);
-
-  useEffect(() => {});
+    setTitle(activeNotes.title);
+    setDescription(activeNotes.description);
+  }, [activeNotes]);
 
   return (
     <div className="app-main">
@@ -47,7 +60,6 @@ export const Main = () => {
           }}
         />
         <button onClick={onSaveBtnClick}>Save</button>
-        <button onClick={onUpdtBtnClick}>Update</button>
       </div>
     </div>
   );

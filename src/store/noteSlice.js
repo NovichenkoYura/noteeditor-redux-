@@ -6,7 +6,7 @@ const noteSlice = createSlice({
   initialState: {
     notes: [],
     value: "",
-    currentEditingItem: [],
+    currentEditingItem: "",
   },
   reducers: {
     onAddNote(state, action) {
@@ -26,7 +26,10 @@ const noteSlice = createSlice({
       state.currentEditingItem = action.payload;
     },
 
-    onReplaceEditNote(state, action) {},
+    onReplaceEditNote(state, action) {
+      state.notes = state.notes.filter((note) => note.id !== action.payload.id);
+      state.notes.push(action.payload);
+    },
   },
 });
 

@@ -1,52 +1,167 @@
-import { onEditField, onAddNote } from "./store/noteSlice";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+// // slice
+// import { createSlice } from "@reduxjs/toolkit";
+// import { v4 as uuidv4 } from "uuid";
 
-export const Main = ({ activeNote, onUpdateNote }) => {
-const [title, setTitle] = useState("");
-const [description, setDescription] = useState("");
-
-const dispatch = useDispatch();
-// const onEditField = (key, value) => {
-// onUpdateNote({
-// ...activeNote,
-// [key]: value,
+// const noteSlice = createSlice({
+// name: "note",
+// initialState: {
+// notes: [],
+// value: "",
+// currentEditingItem: [],
+// },
+// reducers: {
+// onAddNote(state, action) {
+// state.notes.push({
+// id: uuidv4(),
+// title: action.payload.title,
+// description: action.payload.description,
 // lastModified: Date.now(),
 // });
+// },
+
+// onDeleteNote(state, action) {
+// state.notes = state.notes.filter((note) => note.id !== action.payload);
+// },
+
+// onCurrentItemInfo(state, action) {
+// state.currentEditingItem = action.payload;
+// },
+
+// onReplaceEditNote(state, action) {
+// state.notes = state.notes.filter((note) => note.id !== action.payload.id);
+// state.notes.push(action.payload);
+// },
+
+// },
+// });
+
+// export const { onAddNote, onDeleteNote, onCurrentItemInfo, onReplaceEditNote } =
+// noteSlice.actions;
+// export default noteSlice.reducer;
+
+// // \***\*\*\*\*\***\*\*\***\*\*\*\*\***
+// import { onAddNote, onReplaceEditNote } from "./store/noteSlice";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useEffect, useState } from "react";
+
+// export const Main = () => {
+// const [title, setTitle] = useState("");
+// const [description, setDescription] = useState("");
+
+// const activeEditNote = useSelector((state) => state.notes.currentEditingItem);
+// console.log(activeEditNote);
+
+// const dispatch = useDispatch();
+
+// const onSaveBtnClick = () => {
+// dispatch(onAddNote({ title: title, description: description }));
+// setDescription("");
+// setTitle("");
 // };
 
-// if (!activeNote)
-// return <div className="no-active-note">No note selected</div>;
+// const onUpdtBtnClick = () => {
+// dispatch(
+// onReplaceEditNote({
+// title: title,
+// description: description,
+// id: activeEditNote.id,
+// })
+// );
+// setDescription("");
+// setTitle("");
+// };
 
-return (
-<div className="app-main">
-<button
-onClick={() =>
-dispatch(onAddNote({ title: title, description: description }))
-} >
-Save
-</button>
-<div className="app-main-note-edit">
-<input
-type="text"
-value={title}
-onChange={(e) => {
-setTitle(e.target.value);
-}}
-autoFocus
-/>
-<textarea
-placeholder="Write your note here..."
-value={title}
-onChange={(e) => {
-setDescription(e.target.value);
-}}
-/>
-</div>
-<div className="app-main-note-preview">
-<h1 className="preview-title">{activeNote.title}</h1>
-<div className="markdown-preview">{activeNote.body}</div>
-</div>
-</div>
-);
-};
+// useEffect(() => {
+// setTitle(activeEditNote.title);
+// setDescription(activeEditNote.description);
+// }, [activeEditNote]);
+
+// return (
+
+// <div className="app-main">
+// <div className="app-main-note-edit">
+// <input
+// type="text"
+// placeholder="Write your title here..."
+// value={title}
+// onChange={(e) => {
+// setTitle(e.target.value);
+// }}
+// />
+// <textarea
+// id="body"
+// placeholder="Write your note here..."
+// type="text"
+// value={description}
+// onChange={(e) => {
+// setDescription(e.target.value);
+// }}
+// />
+// <button
+// onClick={onSaveBtnClick}
+// className={`${activeEditNote === [] ? "button" : "hidden"}`} >
+// Save
+// </button>
+// <button
+// onClick={onUpdtBtnClick}
+// className={`${activeEditNote !== [] ? "button" : "hidden"}`} >
+// Update
+// </button>
+// </div>
+// </div>
+// );
+// };
+
+// // **\*\***\*\*\*\***\*\***\***\*\***\*\*\*\***\*\*** sidebar
+
+// import { useSelector, useDispatch } from "react-redux";
+// import { onAddNote, onDeleteNote, onCurrentItemInfo } from "./store/noteSlice";
+// import { useState } from "react";
+
+// export const Sidebar = () => {
+// const notes = useSelector((state) => state.notes.notes);
+// const dispatch = useDispatch();
+// const [activeNote, setActiveNote] = useState(false);
+
+// return (
+// <div className="app-sidebar">
+// <div className="app-sidebar-header">
+// <h1>Notes</h1>
+// <button onClick={() => dispatch(onAddNote())}>Add</button>
+// </div>
+// <div className="app-sidebar-notes">
+// {notes.map((note) => (
+// <div
+// key={note.id}
+// className={`app-sidebar-note ${note.id === activeNote && "active"}`}
+// onClick={() =>
+// dispatch(
+// onCurrentItemInfo({
+// id: note.id,
+// title: note.title,
+// description: note.description,
+// })
+// )
+// }
+// >
+// <div className="sidebar-note-title">
+// <strong>{note.title && note.title.substr(0, 120) + "..."}</strong>
+// <button onClick={() => dispatch(onDeleteNote(note.id))}>
+// Delete
+// </button>
+// </div>
+// <p>{note.description && note.description.substr(0, 500) + "..."}</p>
+
+// <small className="note-meta">
+// Last modified{" "}
+// {new Date(note.lastModified).toLocaleDateString("en-GB", {
+// hour: "2-digit",
+// minute: "2-digit",
+// })}
+// </small>
+// </div>
+// ))}
+// </div>
+// </div>
+// );
+// };

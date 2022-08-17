@@ -22,19 +22,19 @@ export const Sidebar = () => {
               dispatch(
                 onCurrentItemInfo({
                   id: note.id,
-                  title: note.title,
-                  description: note.description,
+                  // title: note.title,
+                  // description: note.description,
                 })
               )
             }
           >
             <div className="sidebar-note-title">
-              <strong>{note.title && note.title.substr(0, 120) + "..."}</strong>
+              <strong>{note.title !== "" && note.title}</strong>
               <button onClick={() => dispatch(onDeleteNote(note.id))}>
                 Delete
               </button>
             </div>
-            <p>{note.description && note.description.substr(0, 500) + "..."}</p>
+            <p>{note.description !== "" && note.description}</p>
 
             <small className="note-meta">
               Last modified{" "}
