@@ -9,10 +9,7 @@ export const Main = () => {
   const activeEditNote = useSelector((state) => state.notes.currentEditingItem);
   const notes = useSelector((state) => state.notes.notes);
 
-  const activeNotes = notes.find((note) => note.id === activeEditNote.id);
-  console.log(activeNotes);
-  console.log(activeNotes.title);
-  console.log(activeNotes.description);
+  const activeNote = notes.find((note) => note.id === activeEditNote);
 
   const dispatch = useDispatch();
 
@@ -22,22 +19,19 @@ export const Main = () => {
     setTitle("");
   };
 
-  // const onUpdtBtnClick = () => {
-  //   dispatch(
-  //     onReplaceEditNote({
-  //       title: title,
-  //       description: description,
-  //       id: activeEditNote.id,
-  //     })
-  //   );
-  //   setDescription("");
-  //   setTitle("");
-  // };
-
   useEffect(() => {
-    setTitle(activeNotes.title);
-    setDescription(activeNotes.description);
-  }, [activeNotes]);
+    console.log("qeqeweq");
+    if (activeEditNote && activeNote) {
+      activeNote.title && setTitle(activeNote.title);
+      activeNote.description && setDescription(activeNote.description);
+    } else {
+      setTitle("");
+      setDescription("");
+    }
+  }, [activeEditNote, activeNote]);
+
+  console.log(activeNote);
+  console.log(title);
 
   return (
     <div className="app-main">
@@ -59,7 +53,9 @@ export const Main = () => {
             setDescription(e.target.value);
           }}
         />
-        <button onClick={onSaveBtnClick}>Save</button>
+        <button onClick={onSaveBtnClick}>
+          {activeEditNote ? "Update" : "Save"}
+        </button>
       </div>
     </div>
   );

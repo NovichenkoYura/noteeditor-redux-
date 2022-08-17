@@ -7,26 +7,26 @@ export const Sidebar = () => {
   const dispatch = useDispatch();
   const [activeNote, setActiveNote] = useState(false);
 
+  const addOnClick = () => {
+    dispatch(onCurrentItemInfo(""));
+  };
+
+  const edititemOnClick = (id) => {
+    dispatch(onCurrentItemInfo(id));
+  };
+
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
         <h1>Notes</h1>
-        <button onClick={() => dispatch(onAddNote())}>Add</button>
+        <button onClick={addOnClick}>Add</button>
       </div>
       <div className="app-sidebar-notes">
         {notes.map((note) => (
           <div
             key={note.id}
             className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-            onClick={() =>
-              dispatch(
-                onCurrentItemInfo({
-                  id: note.id,
-                  // title: note.title,
-                  // description: note.description,
-                })
-              )
-            }
+            onClick={() => edititemOnClick(note.id)}
           >
             <div className="sidebar-note-title">
               <strong>{note.title !== "" && note.title}</strong>
