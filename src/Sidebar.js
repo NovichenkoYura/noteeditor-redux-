@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { onAddNote, onDeleteNote, onCurrentItemInfo } from "./store/noteSlice";
+import { onDeleteNote, onCurrentItemInfo } from "./store/noteSlice";
 import { useState } from "react";
 
 export const Sidebar = () => {
@@ -13,6 +13,10 @@ export const Sidebar = () => {
 
   const edititemOnClick = (id) => {
     dispatch(onCurrentItemInfo(id));
+  };
+
+  const DeleteOnNote = (id) => {
+    dispatch(onDeleteNote(id));
   };
 
   return (
@@ -30,9 +34,7 @@ export const Sidebar = () => {
           >
             <div className="sidebar-note-title">
               <strong>{note.title !== "" && note.title}</strong>
-              <button onClick={() => dispatch(onDeleteNote(note.id))}>
-                Delete
-              </button>
+              <button onClick={() => DeleteOnNote(note.id)}>Delete</button>
             </div>
             <p>{note.description !== "" && note.description}</p>
 

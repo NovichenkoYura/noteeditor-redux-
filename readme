@@ -1,3 +1,43 @@
+зачем в аргументы записываьт id
+const edititemOnClick = (id) => {
+dispatch(onCurrentItemInfo(id));
+};
+
+useEffect(() => {
+if (activeEditNoteId && activeNote) {
+setTitle(activeNote.title);
+setDescription(activeNote.description);
+// activeNote.title && setTitle(activeNote.title);
+// activeNote.description && setDescription(activeNote.description);
+} else {
+setTitle("");
+setDescription("");
+}
+}, [activeEditNoteId, activeNote]);
+
+когда вызывать фю с ( а когда без)
+
+    <button onClick={addOnClick}>Add</button>
+      </div>
+      <div className="app-sidebar-notes">
+        {notes.map((note) => (
+          <div
+            key={note.id}
+            className={`app-sidebar-note ${note.id === activeNote && "active"}`}
+            onClick={() => edititemOnClick(note.id)}
+          >
+            <div className="sidebar-note-title">
+              <strong>{note.title !== "" && note.title}</strong>
+                    <button onClick={DeleteOnNote}>
+
+
+
+                        почему не работает в одну строку
+                    onReplaceEditNote(state, action) {
+      state.notes = state.notes.filter((note) => note.id !== action.payload.id);
+      state.notes.push(action.payload);
+    },
+
 // // slice
 // import { createSlice } from "@reduxjs/toolkit";
 // import { v4 as uuidv4 } from "uuid";
