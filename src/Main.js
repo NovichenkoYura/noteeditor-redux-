@@ -64,7 +64,7 @@ export const Main = () => {
             setDescription(e.target.value);
           }}
         />
-        <button onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick}>
+        <button onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick} className="main__button">
           {activeEditNoteId ? "Update" : "Save"}
         </button>
       </div>

@@ -1,4 +1,4 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
+/* @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"); */
 
 * {
   box-sizing: border-box;
@@ -18,19 +18,46 @@ body,
 }
 
 button {
-  background: none;
+  background-color: #bab9bf;
+  border: none;
+  border-radius: 5px;
+ 
+  padding: 6px 22px;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  font-family: inherit;
+  cursor: pointer;
+  color: #212121;
+  
+  
+
+ 
+
+  /* background: none;
   border: 0;
   margin: 0;
   padding: 0;
   font-size: inherit;
   font-family: inherit;
   cursor: pointer;
-  color: #08c;
+  color: #08c; */
 }
 
-button:hover {
-  color: #04c;
+button.main__button {
+  margin: 0 auto;
+  display: block;
+
 }
+
+button:hover,
+button:focus {
+  background-color: #2196f3;
+  color: white;
+  /* color: #04c; */
+}
+
+
 
 .App {
   display: flex;
@@ -97,6 +124,9 @@ button:hover {
 .app-main {
   width: 70%;
   height: 100vh;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: center; */
 }
 
 .app-main-note-edit,
@@ -116,12 +146,14 @@ button:hover {
 /* Editing */
 .app-main-note-edit {
   padding: 25px;
+
 }
 
 .app-main-note-edit input,
 textarea {
   display: block;
   border: 1px solid #ddd;
+  border-radius: 5px;
   margin-bottom: 20px;
   width: 100%;
   height: calc(50vh - 130px);
@@ -134,6 +166,18 @@ textarea {
 .app-main-note-edit input {
   height: 50px;
   font-size: 2rem;
+}
+
+.app-main-note-edit input:hover,
+.app-main-note-edit input:focus{
+box-shadow: 0px, 4px, 4px rgba(0, 0, 0, 0.15);
+background-color: #2196f3;
+}
+
+.app-main-note-edit textarea:hover,
+.app-main-note-edit textarea:focus {
+  box-shadow: 0px, 4px, 4px rgba(0, 0, 0, 0.15);
+  background-color: #2196f3;
 }
 
 /* Preview */
@@ -157,3 +201,4 @@ textarea {
 .hidden{
   display: none;
 }
+
