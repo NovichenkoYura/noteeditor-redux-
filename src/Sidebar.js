@@ -23,7 +23,7 @@ export const Sidebar = () => {
     <div className="app-sidebar">
       <div className="app-sidebar-header">
         <h1>Notes</h1>
-        <button onClick={addOnClick}>Add</button>
+        <button onClick={addOnClick}>New</button>
       </div>
       <div className="app-sidebar-notes">
         {notes.map((note) => (

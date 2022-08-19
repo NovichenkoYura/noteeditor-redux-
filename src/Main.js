@@ -32,12 +32,17 @@ export const Main = () => {
     setDescription("");
     setTitle("");
   };
+
+  // const getTextariadescr = () => {
+  //   (e) => setDescription(e.target.value);
+  // }
+
   useEffect(() => {
     if (activeEditNoteId && activeNote) {
-      setTitle(activeNote.title);
-      setDescription(activeNote.description);
-      //  activeNote.title && setTitle(activeNote.title);
-      //  activeNote.description && setDescription(activeNote.description);
+      // setTitle(activeNote.title);
+      // setDescription(activeNote.description);
+      activeNote.title && setTitle(activeNote.title);
+      activeNote.description && setDescription(activeNote.description);
     } else {
       setTitle("");
       setDescription("");
@@ -64,7 +69,10 @@ export const Main = () => {
             setDescription(e.target.value);
           }}
         />
-        <button onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick} className="main__button">
+        <button
+          onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick}
+          className="main__button"
+        >
           {activeEditNoteId ? "Update" : "Save"}
         </button>
       </div>

@@ -38,6 +38,9 @@ setDescription("");
       state.notes.push(action.payload);
     },
 
+
+              случай когда или в тайтле или і дискрипшине нет данніх
+
 // // slice
 // import { createSlice } from "@reduxjs/toolkit";
 // import { v4 as uuidv4 } from "uuid";
