@@ -81,17 +81,18 @@ button:focus {
   padding: 25px;
   cursor: pointer;
   padding: 20px;
-  border: 1px solid black;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .sidebar-note-title {
   display: flex;
   justify-content: space-between;
 }
-
+/* 
 .app-sidebar-note button {
-  color: crimson;
-}
+color: #212121;
+} */
 
 .app-sidebar-note p {
   margin: 10px 0;

@@ -16,21 +16,29 @@ export const Main = () => {
   const dispatch = useDispatch();
 
   const onSaveBtnClick = () => {
-    dispatch(onAddNote({ title: title, description: description }));
-    setDescription("");
-    setTitle("");
+    if (title === "" || description === "") {
+      alert("Please fill the field");
+    } else {
+      dispatch(onAddNote({ title: title, description: description }));
+      setDescription("");
+      setTitle("");
+    }
   };
 
   const onEditBtnClick = () => {
-    dispatch(
-      onReplaceEditNote({
-        title: title,
-        description: description,
-        id: activeNote.id,
-      })
-    );
-    setDescription("");
-    setTitle("");
+    if (title === "" || description === "") {
+      alert("Please fill the field");
+    } else {
+      dispatch(
+        onReplaceEditNote({
+          title: title,
+          description: description,
+          id: activeNote.id,
+        })
+      );
+      setDescription("");
+      setTitle("");
+    }
   };
 
   // const getTextariadescr = () => {
