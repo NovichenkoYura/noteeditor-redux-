@@ -1,7 +1,4 @@
-зачем в аргументы записываьт id
-const edititemOnClick = (id) => {
-dispatch(onCurrentItemInfo(id));
-};
+
 
 useEffect(() => {
 if (activeEditNoteId && activeNote) {
@@ -42,3 +39,7 @@ setDescription("");
                 случай когда или в тайтле или і дискрипшине нет данніх
 
               ка сделать ссылку на ГХ стр
+
+                // const getTextariadescr = () => {
+  //   (e) => setDescription(e.target.value);
+  // }
