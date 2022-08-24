@@ -41,18 +41,23 @@ const noteSlice = createSlice({
     },
 
     filterTitle(state, action) {
+      function SortArray(x, y) {
+        return x.title.localeCompare(y.title);
+      }
+      console.log(state.notes.sort(SortArray));
+      state.notes = state.notes.sort(SortArray);
       // const obj = action.payload;
       // console.log(obj.sort((a, b) => a.title - b.title));
 
       // const a = action.payload.sort((a, b) => a.title - b.title);
 
       // console.log(a);
-      const SortArray = (x, y) => {
-        return x.localCompare(y);
-      };
+      // const SortArray = (x, y) => {
+      //   return x.localCompare(y);
+      // };
 
-      const a = action.payload.map((item) => item.title.sort(SortArray));
-      console.log(a);
+      // const a = action.payload.map((item) => item.title.sort(SortArray));
+      // console.log(a);
 
       // const a = action.payload.map((item) =>
       //   item.sort((a, b) => a.item.title.localCompare(b.item.title))

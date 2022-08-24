@@ -164,7 +164,8 @@ textarea {
   border-radius: 5px;
   margin-bottom: 20px;
   width: 100%;
-  height: calc(50vh - 130px);
+  /* height: calc(50vh - 130px); */
+  height: calc(50vh - 320px);
   padding: 10px;
   resize: none;
   font-size: inherit;

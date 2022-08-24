@@ -1,3 +1,6 @@
+import { Formik, useFormik } from "formik";
+import * as yup from "yup";
+
 import {
   onAddNote,
   onReplaceEditNote,
@@ -15,6 +18,7 @@ export const Main = () => {
     (state) => state.notes.currentEditingItem
   );
   const notes = useSelector((state) => state.notes.notes);
+  console.log(notes);
 
   const activeNote = notes.find((note) => note.id === activeEditNoteId);
 
@@ -63,15 +67,13 @@ export const Main = () => {
   };
 
   const filterSearchTask = (searchedTitle, notes) => {
-    if (!searchedTitle) {
-      return notes;
-    }
-    return notes.filter(({ title }) =>
-      title.toLowercase.includes(searchedTitle.toLowercase())
-    );
+    // if (!searchedTitle) {
+    //   return notes;
+    // }
+    // return notes.filter(({ title }) =>
+    //   title.toLowercase().includes(searchedTitle.toLowercase())
+    // );
   };
-
-  console.log(filterSearchTask);
 
   useEffect(() => {
     const Debounce = setTimeout(() => {
@@ -79,7 +81,7 @@ export const Main = () => {
       setSearschedTitle(filteredTitles);
     }, 3000);
     return () => clearTimeout(Debounce);
-  }, [searchedTitle]);
+  }, [searchedTitle, notes]);
 
   useEffect(() => {
     if (activeEditNoteId && activeNote) {
@@ -90,6 +92,17 @@ export const Main = () => {
       setDescription("");
     }
   }, [activeEditNoteId, activeNote]);
+
+  const formik = useFormik({
+    initialValues: {
+      search: "",
+      title: "",
+      description: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <div className="app-main">
@@ -127,6 +140,40 @@ export const Main = () => {
         >
           {activeEditNoteId ? "Update" : "Save"}
         </button>
+
+        <form onSubmit={formik.handleSubmit}>
+          <label htmlFor="search">Search</label>
+          <input
+            id="search"
+            name="search"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.search}
+          />
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            onChange={formik.handleChange}
+            value={formik.values.title}
+          />
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            type="description"
+            onChange={formik.handleChange}
+            value={formik.values.description}
+          />
+          <button
+            type="submit"
+            onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick}
+            className="main__button"
+          >
+            {activeEditNoteId ? "Update" : "Save"}
+          </button>
+        </form>
       </div>
     </div>
   );
