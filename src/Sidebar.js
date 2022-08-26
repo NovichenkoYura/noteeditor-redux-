@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   onDeleteNote,
   onCurrentItemInfo,
-  filterTitle,
+  filterTitle, filterDate
 } from "./store/noteSlice";
 import { useState } from "react";
 
@@ -27,17 +27,26 @@ export const Sidebar = () => {
     dispatch(filterTitle(notes));
   };
 
+  const onFilterDate = (notes) =>{
+    dispatch(filterDate(notes))
+  }
+
   return (
     <div className="app-sidebar">
-      <button
-        onClick={() => {
-          // console.log(notes[0].title);
-          onFilterTitle(notes);
-        }}
-      >
-        Title
-      </button>
-      <button>Date</button>
+      <div className="sidebar-filter">
+          <button
+                  onClick={() => {
+                    onFilterTitle(notes);
+                  }}
+                >
+          Title          
+
+          </button>
+          <button onClick={() => {
+                    onFilterDate(notes);
+                  }}>Date</button>
+      </div>
+      
 
       <div className="app-sidebar-header">
         <h1>Notes</h1>

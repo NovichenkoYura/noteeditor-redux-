@@ -21,7 +21,7 @@ button {
   background-color: #bab9bf;
   border: none;
   border-radius: 5px;
- 
+
   padding: 6px 22px;
   font-weight: 500;
   font-size: 16px;
@@ -42,7 +42,6 @@ button {
 button.main__button {
   margin: 0 auto;
   display: block;
-
 }
 
 button:hover,
@@ -51,7 +50,6 @@ button:focus {
   color: white;
   /* color: #04c; */
 }
-
 
 .App {
   display: flex;
@@ -112,6 +110,12 @@ color: #212121;
   color: white;
 }
 
+.sidebar-filter {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+
 /* NOTE EDITOR/PREVIEW (MAIN) STYLES */
 
 .app-main {
@@ -136,17 +140,17 @@ color: #212121;
   color: #999;
 }
 
-.app-main__search{
+.app-main__search {
   display: flex;
   justify-content: space-between;
 }
 
-.main-btn__search{
+.main-btn__search {
   margin-left: 25px;
   height: 50px;
 }
 
-.main__title{
+.main__title {
   font-weight: 700;
   font-size: 24px;
 }
@@ -154,7 +158,6 @@ color: #212121;
 /* Editing */
 .app-main-note-edit {
   padding: 25px;
-
 }
 
 .app-main-note-edit input,
@@ -178,16 +181,13 @@ textarea {
 }
 
 .app-main-note-edit input:hover,
-.app-main-note-edit input:focus{
+.app-main-note-edit input:focus {
   box-shadow: 1px 4px 6px 0px rgba(0, 0, 0, 0.16),
-      0px 4px 4px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
-
+    0px 4px 4px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
 }
 
 .app-main-note-edit textarea:hover,
 .app-main-note-edit textarea:focus {
   box-shadow: 1px 4px 6px 0px rgba(0, 0, 0, 0.16),
-      0px 4px 4px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
-  
+    0px 4px 4px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
 }
-

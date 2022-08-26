@@ -39,44 +39,17 @@ const noteSlice = createSlice({
       // console.log(state.notes);
     },
 
-    filterTitle(state, action) {
-      function SortArray(x, y) {
-        return x.title.localeCompare(y.title);
-      }
-      console.log(state.notes.sort(SortArray));
-      state.notes = state.notes.sort(SortArray);
-      // const obj = action.payload;
-      // console.log(obj.sort((a, b) => a.title - b.title));
+    filterTitle(state) {
+      // function SortArray(x, y) {
+      //   return x.title.localeCompare(y.title);
+      // }
+      // console.log(state.notes.sort(SortArray));
+      // state.notes = state.notes.sort(SortArray);
+      state.notes = state.notes.sort((a, b) => a.title > b.title ? 1 : -1)
+    },
 
-      // const a = action.payload.sort((a, b) => a.title - b.title);
-
-      // console.log(a);
-      // const SortArray = (x, y) => {
-      //   return x.localCompare(y);
-      // };
-
-      // const a = action.payload.map((item) => item.title.sort(SortArray));
-      // console.log(a);
-
-      // const a = action.payload.map((item) =>
-      //   item.sort((a, b) => a.item.title.localCompare(b.item.title))
-      // );
-      // console.log(a);
-
-      // const b = action.payload.map((item) => item.title);
-      // // console.log(b);
-      // const c = b.sort(SortArray);
-      // // console.log(c);
-
-      // const s = action.payload.sort(SortArray);
-      // console.log(s);
-      // state.notes = action.payload.map((item) => item.title.sort());
-      // state.notes = action.payload.map((item) =>
-      //   item.title.sort((a, b) => a.title.localCompare(b.title))
-      // );
-      // state.notes = action.payload.sort((a, b) =>
-      //   a.title.localCompare(b.title)
-      // );
+    filterDate(state) {
+      state.notes = state.notes.sort((a, b) => a.lastModified < b.lastModified ? 1 : -1)
     },
   },
 });
@@ -87,6 +60,7 @@ export const {
   onCurrentItemInfo,
   onReplaceEditNote,
   filterTitle,
+  filterDate,
   searchTitleInfo,
 } = noteSlice.actions;
 export default noteSlice.reducer;
