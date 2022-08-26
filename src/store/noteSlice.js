@@ -43,7 +43,7 @@ const noteSlice = createSlice({
       function SortArray(x, y) {
         return x.title.localeCompare(y.title);
       }
-      // console.log(state.notes.sort(SortArray));
+      console.log(state.notes.sort(SortArray));
       state.notes = state.notes.sort(SortArray);
       // const obj = action.payload;
       // console.log(obj.sort((a, b) => a.title - b.title));
