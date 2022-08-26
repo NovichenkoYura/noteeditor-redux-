@@ -47,7 +47,7 @@ const noteSlice = createSlice({
       // }
       // console.log(state.notes.sort(SortArray));
       // state.notes = state.notes.sort(SortArray);
-      // console.log(action.payload);
+      console.log(action.payload);
 
       if (state.filterTitleStatus === true) {
         state.notes = state.notes.sort((a, b) => (a.title > b.title ? 1 : -1));

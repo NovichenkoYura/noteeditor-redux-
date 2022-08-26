@@ -26,9 +26,10 @@ export const Sidebar = () => {
     dispatch(onDeleteNote(id));
   };
 
-  const onFilterTitle = (notes) => {
-    dispatch(filterTitle(notes));
-    filterTitleStatus = !filterTitleStatus;
+  const onFilterTitle = (notes, filterTitleStatus) => {
+    // dispatch(filterTitle(notes, filterTitleStatus = !filterTitleStatus));
+    // filterTitleStatus = !filterTitleStatus;
+    dispatch(filterTitle(notes, (filterTitleStatus = !filterTitleStatus)));
     console.log(filterTitleStatus);
   };
 
