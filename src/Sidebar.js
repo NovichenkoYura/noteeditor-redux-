@@ -37,9 +37,13 @@ export const Sidebar = () => {
           <button
                   onClick={() => {
                     onFilterTitle(notes);
-                  }}
-                >
-          Title          
+          }}>Title   
+          
+          <svg width="18" height="18">
+            <use>
+
+            </use>
+          </svg>
 
           </button>
           <button onClick={() => {
