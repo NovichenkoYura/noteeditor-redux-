@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
 import { v4 as uuidv4 } from "uuid";
 
 const noteSlice = createSlice({
@@ -44,7 +43,7 @@ const noteSlice = createSlice({
       function SortArray(x, y) {
         return x.title.localeCompare(y.title);
       }
-      console.log(state.notes.sort(SortArray));
+      // console.log(state.notes.sort(SortArray));
       state.notes = state.notes.sort(SortArray);
       // const obj = action.payload;
       // console.log(obj.sort((a, b) => a.title - b.title));

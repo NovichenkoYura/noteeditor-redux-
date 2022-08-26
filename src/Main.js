@@ -1,4 +1,4 @@
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as yup from "yup";
 
 import {
@@ -18,7 +18,6 @@ export const Main = () => {
     (state) => state.notes.currentEditingItem
   );
   const notes = useSelector((state) => state.notes.notes);
-  console.log(notes);
 
   const activeNote = notes.find((note) => note.id === activeEditNoteId);
 
@@ -93,11 +92,18 @@ export const Main = () => {
     }
   }, [activeEditNoteId, activeNote]);
 
+  let schema = yup.object().shape({
+    search: yup.string().required("Required"),
+    title: yup.string().min(5).max(100).required("Required"),
+    description: yup.string().min(5).max(500).required("Required"),
+  });
+
   const formik = useFormik({
     initialValues: {
       search: "",
       title: "",
       description: "",
+      schema,
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -118,7 +124,6 @@ export const Main = () => {
             Search
           </button>
         </div>
-
         <label className="main__title">Title</label>
         <input
           type="text"
@@ -140,7 +145,6 @@ export const Main = () => {
         >
           {activeEditNoteId ? "Update" : "Save"}
         </button>
-
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="search">Search</label>
           <input
