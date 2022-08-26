@@ -7,6 +7,8 @@ const noteSlice = createSlice({
     notes: [],
     value: "",
     currentEditingItem: "",
+    filterTitleStatus: true,
+    filteDataStatus: true,
   },
   reducers: {
     onAddNote(state, action) {
@@ -39,17 +41,25 @@ const noteSlice = createSlice({
       // console.log(state.notes);
     },
 
-    filterTitle(state) {
+    filterTitle(state, action) {
       // function SortArray(x, y) {
       //   return x.title.localeCompare(y.title);
       // }
       // console.log(state.notes.sort(SortArray));
       // state.notes = state.notes.sort(SortArray);
-      state.notes = state.notes.sort((a, b) => a.title > b.title ? 1 : -1)
+      // console.log(action.payload);
+
+      if (state.filterTitleStatus === true) {
+        state.notes = state.notes.sort((a, b) => (a.title > b.title ? 1 : -1));
+      } else
+        state.notes = state.notes.sort((a, b) => (b.title > a.title ? 1 : -1));
+      // state.filterTitleStatus !=== state.filterTitleStatus;
     },
 
     filterDate(state) {
-      state.notes = state.notes.sort((a, b) => a.lastModified < b.lastModified ? 1 : -1)
+      state.notes = state.notes.sort((a, b) =>
+        a.lastModified < b.lastModified ? 1 : -1
+      );
     },
   },
 });
