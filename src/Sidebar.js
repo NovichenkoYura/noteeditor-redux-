@@ -29,8 +29,7 @@ export const Sidebar = () => {
   const onFilterTitle = (notes, filterTitleStatus) => {
     // dispatch(filterTitle(notes, filterTitleStatus = !filterTitleStatus));
     // filterTitleStatus = !filterTitleStatus;
-    dispatch(filterTitle(notes, (filterTitleStatus = !filterTitleStatus)));
-    console.log(filterTitleStatus);
+    dispatch(filterTitle());
   };
 
   const onFilterDate = (notes) => {

@@ -12,6 +12,7 @@ const noteSlice = createSlice({
   },
   reducers: {
     onAddNote(state, action) {
+      console.log(action.payload);
       state.notes.push({
         id: uuidv4(),
         title: action.payload.title,
@@ -41,19 +42,19 @@ const noteSlice = createSlice({
       // console.log(state.notes);
     },
 
-    filterTitle(state, action) {
+    filterTitle(state) {
       // function SortArray(x, y) {
       //   return x.title.localeCompare(y.title);
       // }
       // console.log(state.notes.sort(SortArray));
       // state.notes = state.notes.sort(SortArray);
-      console.log(action.payload);
+      // console.log(action.payload);
 
       if (state.filterTitleStatus === true) {
         state.notes = state.notes.sort((a, b) => (a.title > b.title ? 1 : -1));
       } else
         state.notes = state.notes.sort((a, b) => (b.title > a.title ? 1 : -1));
-      // state.filterTitleStatus !=== state.filterTitleStatus;
+      state.filterTitleStatus = !state.filterTitleStatus;
     },
 
     filterDate(state) {

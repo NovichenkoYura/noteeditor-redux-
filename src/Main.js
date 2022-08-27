@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
-import * as yup from "yup";
+import * as Yup from "yup";
+import { useMemo } from "react";
 
 import {
   onAddNote,
@@ -7,7 +8,7 @@ import {
   searchTitleInfo,
 } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Main = () => {
   const [title, setTitle] = useState("");
@@ -92,28 +93,38 @@ export const Main = () => {
     }
   }, [activeEditNoteId, activeNote]);
 
-  let schema = yup.object().shape({
-    search: yup.string().required("Required"),
-    title: yup.string().min(5).max(100).required("Required"),
-    description: yup.string().min(5).max(500).required("Required"),
-  });
+  // let Schema = yup.object().shape({
+  //   search: yup.string().required("Required"),
+  //   title: yup.string().min(5).max(100).required("Required"),
+  //   description: yup.string().min(5).max(500).required("Required"),
+  // });
+
+  const validationSchema = useMemo(() => {
+    return Yup.object({
+      title: Yup.string().min(5).max(100).required("Required"),
+      description: Yup.string().min(5).max(500).required("Required"),
+    });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      search: "",
       title: "",
       description: "",
-      schema,
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(
+        onAddNote({ title: values.title, desciption: values.description })
+      );
     },
+    // validationSchema,
   });
+
+  console.log(formik.errors);
 
   return (
     <div className="app-main">
       <div className="app-main-note-edit">
-        <div className="app-main__search">
+        {/* <div className="app-main__search">
           <input
             type="text"
             placeholder="Search"
@@ -144,7 +155,7 @@ export const Main = () => {
           className="main__button"
         >
           {activeEditNoteId ? "Update" : "Save"}
-        </button>
+        </button> */}
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="search">Search</label>
           <input
