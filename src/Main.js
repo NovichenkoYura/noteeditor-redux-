@@ -2,18 +2,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMemo } from "react";
 
-import {
-  onAddNote,
-  onReplaceEditNote,
-  searchTitleInfo,
-} from "./store/noteSlice";
+import { onAddNote, onReplaceEditNote } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 
 export const Main = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [searchedTitle, setSearschedTitle] = useState("");
 
   const activeEditNoteId = useSelector(
     (state) => state.notes.currentEditingItem
@@ -25,29 +20,21 @@ export const Main = () => {
   const dispatch = useDispatch();
 
   const onSaveBtnClick = () => {
-    if (title === "" || description === "") {
-      alert("Please fill the field");
-    } else {
-      dispatch(onAddNote({ title: title, description: description }));
-      setDescription("");
-      setTitle("");
-    }
+    dispatch(onAddNote({ title: title, description: description }));
+    setDescription("");
+    setTitle("");
   };
 
   const onEditBtnClick = () => {
-    if (title === "" || description === "") {
-      alert("Please fill the field");
-    } else {
-      dispatch(
-        onReplaceEditNote({
-          title: title,
-          description: description,
-          id: activeNote.id,
-        })
-      );
-      setDescription("");
-      setTitle("");
-    }
+    dispatch(
+      onReplaceEditNote({
+        title: title,
+        description: description,
+        id: activeNote.id,
+      })
+    );
+    setDescription("");
+    setTitle("");
   };
 
   const getTextariadescr = (e) => {
@@ -57,31 +44,6 @@ export const Main = () => {
   const getInputdescr = (e) => {
     setTitle(e.target.value);
   };
-
-  const searchTitle = () => {
-    dispatch(searchTitleInfo({ title: searchedTitle }));
-  };
-
-  const onIputgetSearchInfo = (e) => {
-    setSearschedTitle(e.target.value);
-  };
-
-  const filterSearchTask = (searchedTitle, notes) => {
-    // if (!searchedTitle) {
-    //   return notes;
-    // }
-    // return notes.filter(({ title }) =>
-    //   title.toLowercase().includes(searchedTitle.toLowercase())
-    // );
-  };
-
-  useEffect(() => {
-    const Debounce = setTimeout(() => {
-      const filteredTitles = filterSearchTask(searchedTitle, notes);
-      setSearschedTitle(filteredTitles);
-    }, 3000);
-    return () => clearTimeout(Debounce);
-  }, [searchedTitle, notes]);
 
   useEffect(() => {
     if (activeEditNoteId && activeNote) {
@@ -113,18 +75,44 @@ export const Main = () => {
     },
     onSubmit: (values) => {
       dispatch(
-        onAddNote({ title: values.title, desciption: values.description })
+        onAddNote({ title: values.title, description: values.description })
       );
+      formik.values.title = "";
+      formik.values.description = "";
     },
     // validationSchema,
   });
 
-  console.log(formik.errors);
+  console.log(formik.values);
 
   return (
-    <div className="app-main">
-      <div className="app-main-note-edit">
-        {/* <div className="app-main__search">
+    <form onSubmit={formik.handleSubmit}>
+      <label htmlFor="title">Title</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        onChange={formik.handleChange}
+        value={formik.values.title}
+      />
+      <label htmlFor="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        type="description"
+        onChange={formik.handleChange}
+        value={formik.values.description}
+      />
+      <button
+        type="submit"
+        onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick}
+        className="main__button"
+      >
+        {activeEditNoteId ? "Update" : "Save"}
+      </button>
+    </form>
+
+    /* <div className="app-main__search">
           <input
             type="text"
             placeholder="Search"
@@ -155,41 +143,6 @@ export const Main = () => {
           className="main__button"
         >
           {activeEditNoteId ? "Update" : "Save"}
-        </button> */}
-        <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="search">Search</label>
-          <input
-            id="search"
-            name="search"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.search}
-          />
-          <label htmlFor="title">Title</label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.title}
-          />
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            type="description"
-            onChange={formik.handleChange}
-            value={formik.values.description}
-          />
-          <button
-            type="submit"
-            onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick}
-            className="main__button"
-          >
-            {activeEditNoteId ? "Update" : "Save"}
-          </button>
-        </form>
-      </div>
-    </div>
+        </button> */
   );
 };
