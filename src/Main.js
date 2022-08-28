@@ -20,9 +20,9 @@ export const Main = () => {
   const dispatch = useDispatch();
 
   const onSaveBtnClick = () => {
-    dispatch(onAddNote({ title: title, description: description }));
-    setDescription("");
-    setTitle("");
+    // dispatch(onAddNote({ title: title, description: description }));
+    // setDescription("");
+    // setTitle("");
   };
 
   const onEditBtnClick = () => {
@@ -74,11 +74,21 @@ export const Main = () => {
       description: "",
     },
     onSubmit: (values) => {
-      dispatch(
-        onAddNote({ title: values.title, description: values.description })
-      );
-      formik.values.title = "";
-      formik.values.description = "";
+      if (activeEditNoteId) {
+        dispatch(
+          onReplaceEditNote({
+            title: values.title,
+            description: values.description,
+            // id: activeNote.id,
+          })
+        );
+      } else {
+        dispatch(
+          onAddNote({ title: values.title, description: values.description })
+        );
+        formik.values.title = "";
+        formik.values.description = "";
+      }
     },
     // validationSchema,
   });
