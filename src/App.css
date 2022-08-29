@@ -165,7 +165,7 @@ textarea {
   display: block;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   width: 100%;
   height: calc(50vh - 130px);
   /* height: calc(50vh - 320px); */
@@ -190,4 +190,19 @@ textarea {
 .app-main-note-edit textarea:focus {
   box-shadow: 1px 4px 6px 0px rgba(0, 0, 0, 0.16),
     0px 4px 4px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+}
+
+/* formik */
+
+.formik-errors-message{
+  color: red;
+  margin-top: 6px;
+}
+
+.formik-input{
+  margin-bottom: 0px;
+}
+
+.formik-form{
+  margin-bottom: 20px;
 }

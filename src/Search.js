@@ -50,7 +50,7 @@ export const Search = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="formik-form">
       <label htmlFor="search">Search</label>
       <input
         id="search"

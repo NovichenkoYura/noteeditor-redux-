@@ -10,9 +10,9 @@ const noteSlice = createSlice({
     filterTitleStatus: true,
     filteDataStatus: true,
   },
+
   reducers: {
     onAddNote(state, action) {
-      console.log(action.payload);
       state.notes.push({
         id: uuidv4(),
         title: action.payload.title,
@@ -35,21 +35,12 @@ const noteSlice = createSlice({
     },
 
     searchTitleInfo(state, action) {
-      // console.log(action.payload);
       state.notes = state.notes.filter((note) =>
         note.title.includes(action.payload.title)
       );
-      // console.log(state.notes);
     },
 
     filterTitle(state) {
-      // function SortArray(x, y) {
-      //   return x.title.localeCompare(y.title);
-      // }
-      // console.log(state.notes.sort(SortArray));
-      // state.notes = state.notes.sort(SortArray);
-      // console.log(action.payload);
-
       if (state.filterTitleStatus === true) {
         state.notes = state.notes.sort((a, b) => (a.title > b.title ? 1 : -1));
       } else
@@ -58,9 +49,15 @@ const noteSlice = createSlice({
     },
 
     filterDate(state) {
-      state.notes = state.notes.sort((a, b) =>
-        a.lastModified < b.lastModified ? 1 : -1
-      );
+      if (state.filteDataStatus === true) {
+        state.notes = state.notes.sort((a, b) =>
+          a.lastModified > b.lastModified ? 1 : -1
+        );
+      } else
+        state.notes = state.notes.sort((a, b) =>
+          b.lastModified > a.lastModified ? 1 : -1
+        );
+      state.filteDataStatus = !state.filteDataStatus;
     },
   },
 });

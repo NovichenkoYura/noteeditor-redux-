@@ -13,6 +13,7 @@ export const Main = () => {
   const activeEditNoteId = useSelector(
     (state) => state.notes.currentEditingItem
   );
+
   const notes = useSelector((state) => state.notes.notes);
 
   const activeNote = notes.find((note) => note.id === activeEditNoteId);
@@ -47,19 +48,30 @@ export const Main = () => {
 
   useEffect(() => {
     if (activeEditNoteId && activeNote) {
-      setTitle(activeNote.title);
-      setDescription(activeNote.description);
+      // console.log(formik.values.title);
+      formik.values.title = activeNote.title;
+      formik.values.description = activeNote.description;
     } else {
-      setTitle("");
-      setDescription("");
+      formik.values.title = "";
+      formik.values.description = "";
     }
   }, [activeEditNoteId, activeNote]);
 
-  // let Schema = yup.object().shape({
-  //   search: yup.string().required("Required"),
-  //   title: yup.string().min(5).max(100).required("Required"),
-  //   description: yup.string().min(5).max(500).required("Required"),
-  // });
+  // useEffect(() => {
+  //   if (activeEditNoteId && activeNote) {
+  //     setTitle(activeNote.title);
+  //     setDescription(activeNote.description);
+  //   } else {
+  //     setTitle("");
+  //     setDescription("");
+  //   }
+  // }, [activeEditNoteId, activeNote]);
+
+  let Schema = Yup.object().shape({
+    search: Yup.string().required("Required"),
+    title: Yup.string().min(5).max(100).required("Required"),
+    description: Yup.string().min(5).max(500).required("Required"),
+  });
 
   const validationSchema = useMemo(() => {
     return Yup.object({
@@ -74,11 +86,11 @@ export const Main = () => {
       description: "",
     },
     onSubmit: (values) => {
-      if (activeEditNoteId) {
+      if (activeNote) {
         dispatch(
           onReplaceEditNote({
-            title: values.title,
-            description: values.description,
+            title: activeNote.title,
+            description: activeNote.description,
             // id: activeNote.id,
           })
         );
@@ -90,29 +102,38 @@ export const Main = () => {
         formik.values.description = "";
       }
     },
-    // validationSchema,
+    validationSchema,
   });
 
-  console.log(formik.values);
+  console.log(formik.errors);
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="title">Title</label>
-      <input
-        id="title"
-        name="title"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.title}
-      />
-      <label htmlFor="description">Description</label>
-      <textarea
-        id="description"
-        name="description"
-        type="description"
-        onChange={formik.handleChange}
-        value={formik.values.description}
-      />
+      <div className="formik-form">
+        <label htmlFor="title">Title</label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.title}
+          className="formik-input"
+        />
+        <p className="formik-errors-message">{formik.errors.title}</p>
+      </div>
+
+      <div className="formik-form">
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          type="description"
+          onChange={formik.handleChange}
+          value={formik.values.description}
+        />
+        <p className="formik-errors-message">{formik.errors.description}</p>
+      </div>
+
       <button
         type="submit"
         onClick={activeEditNoteId ? onEditBtnClick : onSaveBtnClick}

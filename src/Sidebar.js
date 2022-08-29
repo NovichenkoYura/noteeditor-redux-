@@ -10,6 +10,7 @@ import { useState } from "react";
 export const Sidebar = () => {
   const notes = useSelector((state) => state.notes.notes);
   let filterTitleStatus = useSelector((state) => state.notes.filterTitleStatus);
+  let filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
 
   const dispatch = useDispatch();
   const [activeNote, setActiveNote] = useState(false);
@@ -26,14 +27,12 @@ export const Sidebar = () => {
     dispatch(onDeleteNote(id));
   };
 
-  const onFilterTitle = (notes, filterTitleStatus) => {
-    // dispatch(filterTitle(notes, filterTitleStatus = !filterTitleStatus));
-    // filterTitleStatus = !filterTitleStatus;
+  const onFilterTitle = () => {
     dispatch(filterTitle());
   };
 
-  const onFilterDate = (notes) => {
-    dispatch(filterDate(notes));
+  const onFilterDate = () => {
+    dispatch(filterDate());
   };
 
   return (
@@ -51,7 +50,7 @@ export const Sidebar = () => {
         </button>
         <button
           onClick={() => {
-            onFilterDate(notes);
+            onFilterDate(notes, !filterDataStatus);
           }}
         >
           Date
