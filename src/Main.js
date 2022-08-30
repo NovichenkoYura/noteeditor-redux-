@@ -61,14 +61,13 @@ export const Main = () => {
     // validationSchema,
   });
 
-    useEffect(() => {
+useEffect(() => {
     if (activeNote) {      
         formik.setValues({
           title: activeNote.title,
           description: activeNote.description,
         })      
-      }
-   
+      }   
   }, [activeNote])
 
 

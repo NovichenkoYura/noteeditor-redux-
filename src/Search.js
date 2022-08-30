@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMemo } from "react";
+import { searchTitleInfo } from "./store/noteSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
@@ -10,44 +11,59 @@ export const Search = () => {
   const [description, setDescription] = useState("");
   const [searchedTitle, setSearschedTitle] = useState("");
 
-  const notes = useSelector((state) => state.notes.notes);
+  let notes = useSelector((state) => state.notes.notes);
+ 
+
 
   const dispatch = useDispatch();
 
-  const onIputgetSearchInfo = (e) => {
-    setSearschedTitle(e.target.value);
-  };
+ 
 
-  const filterSearchTask = (searchedTitle, notes) => {
-    // if (!searchedTitle) {
-    //   return notes;
-    // }
-    // return notes.filter(({ title }) =>
-    //   title.toLowercase().includes(searchedTitle.toLowercase())
-    // );
-  };
+  // const filterSearchTask = (searchedTitle, notes) => {
+  //   if (!searchedTitle) {
+  //     return notes;
+  //   }
+  //   return notes.filter(({ title }) =>
+  //     title.toLowercase().includes(searchedTitle.toLowercase())
+  //   );
+  // };
 
-  useEffect(() => {
-    const Debounce = setTimeout(() => {
-      const filteredTitles = filterSearchTask(searchedTitle, notes);
-      setSearschedTitle(filteredTitles);
-    }, 3000);
-    return () => clearTimeout(Debounce);
-  }, [searchedTitle, notes]);
+
+
+
+  // useEffect(() => {
+  //   const Debounce = setTimeout(() => {
+  //     const filteredTitles = filterSearchTask(searchedTitle, notes);
+  //     setSearschedTitle(filteredTitles);
+  //   }, 3000);
+  //   return () => clearTimeout(Debounce);
+  // }, [searchedTitle, notes]);
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      description: "",
-    },
-    onSubmit: (values) => {
-      //   dispatch(
-      //     onAddNote({ title: values.title, description: values.description })
-      //   );
-      formik.values.title = "";
-      formik.values.description = "";
-    },
+      searchedtitle: "",      
+    },   
+    
   });
+
+  const searchedNotes = notes.slice().filter((item) => item.title.includes(formik.values.search))
+
+  console.log(searchedNotes.map(item=>item.title))
+  
+  // useEffect(() => {
+  //   if (searchedNotes) {      
+  //        searchTitleInfo(searchedNotes) {
+ 
+  //   } else {
+      
+  //       }   
+       
+  // }, [searchedNotes])
+
+
+  
+ 
+
 
   return (
     <form onSubmit={formik.handleSubmit} className="formik-form">

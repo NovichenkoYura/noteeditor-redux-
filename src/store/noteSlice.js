@@ -36,9 +36,11 @@ const noteSlice = createSlice({
     },
 
     searchTitleInfo(state, action) {
-      state.notes = state.notes.filter((note) =>
-        note.title.includes(action.payload.title)
-      );
+
+      // state.note = 
+      // // state.notes = state.notes.filter((note) =>
+      // //   note.title.includes(action.payload.title)
+      // // );
     },
 
     filterTitle(state) {
