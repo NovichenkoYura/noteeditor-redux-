@@ -29,9 +29,10 @@ const noteSlice = createSlice({
       state.currentEditingItem = action.payload;
     },
 
-    onReplaceEditNote(state, action) {
-      state.notes = state.notes.filter((note) => note.id !== action.payload.id);
-      state.notes.push(action.payload);
+    onReplaceEditNote(state, action) {      
+
+      state.notes = state.notes.map(item => item.id === action.payload.id ? action.payload : item)
+
     },
 
     searchTitleInfo(state, action) {
