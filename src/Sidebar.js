@@ -8,9 +8,12 @@ import {
 import { useState } from "react";
 
 export const Sidebar = () => {
-  const notes = useSelector((state) => state.notes.notes);
   let filterTitleStatus = useSelector((state) => state.notes.filterTitleStatus);
   let filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
+
+  const initialNotes = useSelector((state) => state.notes.notes);
+  const searchedNotesTitle = useSelector((state) => state.notes.searchedNotesTitle);  
+  const notes = initialNotes.filter((note) => note.title.includes(searchedNotesTitle));
 
   const dispatch = useDispatch();
   const [activeNote, setActiveNote] = useState(false);

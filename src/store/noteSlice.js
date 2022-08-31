@@ -9,6 +9,8 @@ const noteSlice = createSlice({
     currentEditingItem: "",
     filterTitleStatus: true,
     filteDataStatus: true,
+    searchedNotesTitle: [],
+    
   },
 
   reducers: {
@@ -29,19 +31,15 @@ const noteSlice = createSlice({
       state.currentEditingItem = action.payload;
     },
 
-    onReplaceEditNote(state, action) {      
-
+    onReplaceEditNote(state, action) {
       state.notes = state.notes.map(item => item.id === action.payload.id ? action.payload : item)
-
     },
 
     searchTitleInfo(state, action) {
-
-      // state.note = 
-      // // state.notes = state.notes.filter((note) =>
-      // //   note.title.includes(action.payload.title)
-      // // );
+      state.searchedNotesTitle = action.payload
+     
     },
+    
 
     filterTitle(state) {
       if (state.filterTitleStatus === true) {
@@ -64,6 +62,8 @@ const noteSlice = createSlice({
     },
   },
 });
+
+
 
 export const {
   onAddNote,

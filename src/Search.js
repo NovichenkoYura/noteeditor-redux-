@@ -46,23 +46,15 @@ export const Search = () => {
     
   });
 
-  const searchedNotes = notes.slice().filter((item) => item.title.includes(formik.values.search))
-
-  console.log(searchedNotes.map(item=>item.title))
-  
-  // useEffect(() => {
-  //   if (searchedNotes) {      
-  //        searchTitleInfo(searchedNotes) {
- 
-  //   } else {
+   useEffect(() => {
+    if (formik.values.search.length > 0) {
+      dispatch(searchTitleInfo(formik.values.search))  
+    } else {
+       dispatch(searchTitleInfo(''))
+    }
       
-  //       }   
-       
-  // }, [searchedNotes])
-
-
-  
- 
+    
+  },[formik.values.search])
 
 
   return (
