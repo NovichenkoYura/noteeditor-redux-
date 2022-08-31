@@ -7,6 +7,9 @@ import {
 } from "./store/noteSlice";
 import { useState } from "react";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowDownLong, faArrowUpLong, faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons'
+
 export const Sidebar = () => {
   let filterTitleStatus = useSelector((state) => state.notes.filterTitleStatus);
   let filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
@@ -45,11 +48,14 @@ export const Sidebar = () => {
           onClick={() => {
             onFilterTitle(notes, !filterTitleStatus);
           }}
+           
         >
           Title
-          <svg width="18" height="18">
-            <use></use>
-          </svg>
+         
+          {
+            filterTitleStatus ? <FontAwesomeIcon  icon = { faArrowDownShortWide } /> : <FontAwesomeIcon  icon = { faArrowUpWideShort }/>
+         }               
+         
         </button>
         <button
           onClick={() => {
@@ -57,6 +63,9 @@ export const Sidebar = () => {
           }}
         >
           Date
+        {
+            filterDataStatus ? <FontAwesomeIcon  icon = { faArrowUpWideShort } /> : <FontAwesomeIcon  icon = {  faArrowDownShortWide}/>
+         }     
         </button>
       </div>
 
