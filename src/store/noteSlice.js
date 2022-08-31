@@ -63,8 +63,6 @@ const noteSlice = createSlice({
   },
 });
 
-
-
 export const {
   onAddNote,
   onDeleteNote,
