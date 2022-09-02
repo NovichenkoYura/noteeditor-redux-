@@ -58,7 +58,7 @@ export const Main = () => {
       }
      
     },
-    // validationSchema,
+    validationSchema,
   });
 
 useEffect(() => {
