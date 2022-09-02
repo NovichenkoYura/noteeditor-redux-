@@ -46,8 +46,8 @@ export const Main = () => {
             id: activeNote.id,
           })          
         );
-        values.title = "";
-        values.description = "";
+        formik.values.title = "";
+        formik.values.description = "";
         
       } else {
         dispatch(

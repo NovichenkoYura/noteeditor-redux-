@@ -116,6 +116,12 @@ color: #212121;
   padding: 25px;
 }
 
+.sidebar-filter-btn {
+  /* display: flex;
+  flex-direction: row;
+  justify-content: center; */
+}
+
 /* NOTE EDITOR/PREVIEW (MAIN) STYLES */
 
 .app-main {
@@ -194,15 +200,15 @@ textarea {
 
 /* formik */
 
-.formik-errors-message{
+.formik-errors-message {
   color: red;
   margin-top: 6px;
 }
 
-.formik-input{
+.formik-input {
   margin-bottom: 0px;
 }
 
-.formik-form{
+.formik-form {
   margin-bottom: 20px;
 }

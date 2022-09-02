@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDownLong, faArrowUpLong, faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons'
 
 export const Sidebar = () => {
   let filterTitleStatus = useSelector((state) => state.notes.filterTitleStatus);
@@ -23,6 +23,7 @@ export const Sidebar = () => {
 
   const addOnClick = () => {
     dispatch(onCurrentItemInfo(""));
+    
   };
 
   const edititemOnClick = (id) => {
@@ -44,14 +45,13 @@ export const Sidebar = () => {
   return (
     <div className="app-sidebar">
       <div className="sidebar-filter">
-        <button
+        <button className="sidebar-filter-btn"
           onClick={() => {
             onFilterTitle(notes, !filterTitleStatus);
           }}
            
         >
-          Title
-         
+          Title         
           {
             filterTitleStatus ? <FontAwesomeIcon  icon = { faArrowDownShortWide } /> : <FontAwesomeIcon  icon = { faArrowUpWideShort }/>
          }               
