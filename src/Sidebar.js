@@ -1,11 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-  onDeleteNote,
-  onCurrentItemInfo,
-  sortTitle,
-  sortDate,
-} from "./store/noteSlice";
-import { useState } from "react";
+import { onCurrentItemInfo, sortTitle, sortDate } from "./store/noteSlice";
+import { SidebarRenderList } from "./SidebarRenderList";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -28,13 +23,8 @@ export const Sidebar = () => {
   );
 
   const dispatch = useDispatch();
-  const [activeNote, setActiveNote] = useState(false);
 
   const addOnClick = () => dispatch(onCurrentItemInfo(""));
-
-  const edititemOnClick = (id) => dispatch(onCurrentItemInfo(id));
-
-  const DeleteOnNote = (id) => dispatch(onDeleteNote(id));
 
   const onFilterTitle = () => dispatch(sortTitle());
 
@@ -68,29 +58,7 @@ export const Sidebar = () => {
         <h1>Notes</h1>
         <button onClick={addOnClick}>New</button>
       </div>
-      <div className="app-sidebar-notes">
-        {notes.map((note) => (
-          <div
-            key={note.id}
-            className={`app-sidebar-note ${note.id === activeNote && "active"}`}
-            onClick={() => edititemOnClick(note.id)}
-          >
-            <div className="sidebar-note-title">
-              <strong>{note.title !== "" && note.title}</strong>
-              <button onClick={() => DeleteOnNote(note.id)}>Delete</button>
-            </div>
-            <p>{note.description !== "" && note.description}</p>
-
-            <small className="note-meta">
-              Last modified{" "}
-              {new Date(note.lastModified).toLocaleDateString("en-GB", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </small>
-          </div>
-        ))}
-      </div>
+      <SidebarRenderList />
     </div>
   );
 };
