@@ -5,24 +5,18 @@ import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 
 export const Search = () => {
-
   const dispatch = useDispatch();
 
-   const formik = useFormik({
+  const formik = useFormik({
     initialValues: {
-      searchedtitle: "",      
-    },   
-    
+      searchedtitle: "",
+    },
   });
-     
-  useEffect(() => {
-    if (formik.values.search) {
-      dispatch(searchTitleInfo(formik.values.search))  
-    } else {
-       dispatch(searchTitleInfo(''))
-    }        
-  },[formik.values.search])
 
+  useEffect(() => {
+    if (formik.values.search) dispatch(searchTitleInfo(formik.values.search));
+    else dispatch(searchTitleInfo(""));
+  }, [formik.values.search]);
 
   return (
     <form onSubmit={formik.handleSubmit} className="formik-form">
