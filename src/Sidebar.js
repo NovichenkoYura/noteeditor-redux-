@@ -2,70 +2,65 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   onDeleteNote,
   onCurrentItemInfo,
-  filterTitle,
-  filterDate,
+  sortTitle,
+  sortDate,
 } from "./store/noteSlice";
 import { useState } from "react";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDownShortWide, faArrowUpWideShort } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDownShortWide,
+  faArrowUpWideShort,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const Sidebar = () => {
-  let filterTitleStatus = useSelector((state) => state.notes.filterTitleStatus);
-  let filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
+  const filterTitleStatus = useSelector(
+    (state) => state.notes.filterTitleStatus
+  );
+  const filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
 
-  const initialNotes = useSelector((state) => state.notes.notes);
-  const searchedNotesTitle = useSelector((state) => state.notes.searchedNotesTitle);  
-  const notes = initialNotes.filter((note) => note.title.includes(searchedNotesTitle));
+  const initialNotes = useSelector((state) => state.notes.notesList);
+  const searchedNotesTitle = useSelector(
+    (state) => state.notes.searchedNotesTitle
+  );
+  const notes = initialNotes.filter((note) =>
+    note.title.includes(searchedNotesTitle)
+  );
 
   const dispatch = useDispatch();
   const [activeNote, setActiveNote] = useState(false);
 
-  const addOnClick = () => {
-    dispatch(onCurrentItemInfo(""));
-    
-  };
+  const addOnClick = () => dispatch(onCurrentItemInfo(""));
 
-  const edititemOnClick = (id) => {
-    dispatch(onCurrentItemInfo(id));
-  };
+  const edititemOnClick = (id) => dispatch(onCurrentItemInfo(id));
 
-  const DeleteOnNote = (id) => {
-    dispatch(onDeleteNote(id));
-  };
+  const DeleteOnNote = (id) => dispatch(onDeleteNote(id));
 
-  const onFilterTitle = () => {
-    dispatch(filterTitle());
-  };
+  const onFilterTitle = () => dispatch(sortTitle());
 
-  const onFilterDate = () => {
-    dispatch(filterDate());
-  };
+  const onFilterDate = () => dispatch(sortDate());
 
   return (
     <div className="app-sidebar">
       <div className="sidebar-filter">
-        <button className="sidebar-filter-btn"
-          onClick={() => {
-            onFilterTitle(notes, !filterTitleStatus);
-          }}
-           
-        >
-          Title         
-          {
-            filterTitleStatus ? <FontAwesomeIcon  icon = { faArrowDownShortWide } /> : <FontAwesomeIcon  icon = { faArrowUpWideShort }/>
-         }               
-         
-        </button>
         <button
-          onClick={() => {
-            onFilterDate(notes, !filterDataStatus);
-          }}
+          className="sidebar-filter-btn"
+          onClick={() => onFilterTitle(notes, !filterTitleStatus)}
         >
+          Title
+          {filterTitleStatus ? (
+            <FontAwesomeIcon icon={faArrowDownShortWide} />
+          ) : (
+            <FontAwesomeIcon icon={faArrowUpWideShort} />
+          )}
+        </button>
+        <button onClick={() => onFilterDate(notes, !filterDataStatus)}>
           Date
-        {
-            filterDataStatus ? <FontAwesomeIcon  icon = { faArrowUpWideShort } /> : <FontAwesomeIcon  icon = {  faArrowDownShortWide}/>
-         }     
+          {filterDataStatus ? (
+            <FontAwesomeIcon icon={faArrowUpWideShort} />
+          ) : (
+            <FontAwesomeIcon icon={faArrowDownShortWide} />
+          )}
         </button>
       </div>
 

@@ -4,20 +4,18 @@ import { useMemo } from "react";
 
 import { onAddNote, onReplaceEditNote } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 
 export const Main = () => {
-  
   const activeEditNoteId = useSelector(
     (state) => state.notes.currentEditingItem
   );
 
-  const notes = useSelector((state) => state.notes.notes);
+  const notes = useSelector((state) => state.notes.notesList);
 
   const activeNote = notes.find((note) => note.id === activeEditNoteId);
 
   const dispatch = useDispatch();
-
 
   let Schema = Yup.object().shape({
     search: Yup.string().required("Required"),
@@ -37,39 +35,45 @@ export const Main = () => {
       title: "",
       description: "",
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       if (activeNote) {
         dispatch(
           onReplaceEditNote({
             title: values.title,
             description: values.description,
             id: activeNote.id,
-          })          
+          })
         );
+        resetForm();
         formik.values.title = "";
         formik.values.description = "";
-        
       } else {
         dispatch(
           onAddNote({ title: values.title, description: values.description })
         );
+        resetForm();
         formik.values.title = "";
         formik.values.description = "";
       }
-     
     },
     validationSchema,
   });
 
-useEffect(() => {
-    if (activeNote) {      
-        formik.setValues({
-          title: activeNote.title,
-          description: activeNote.description,
-        })      
-      }   
-  }, [activeNote])
-
+  useEffect(() => {
+    console.log(activeEditNoteId);
+    if (activeNote && activeEditNoteId) {
+      formik.setValues({
+        title: activeNote.title,
+        description: activeNote.description,
+      });
+    } else {
+      console.log("else");
+      formik.setValues({
+        title: "",
+        description: "",
+      });
+    }
+  }, [activeNote, activeEditNoteId]);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -106,7 +110,5 @@ useEffect(() => {
         {activeEditNoteId ? "Update" : "Save"}
       </button>
     </form>
-
-    
   );
 };
