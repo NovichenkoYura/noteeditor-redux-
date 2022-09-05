@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 
 export const SidebarRenderList = () => {
-  const initialNotes = useSelector((state) => state.notes.notesList);
-  const searchedNotesTitle = useSelector(
-    (state) => state.notes.searchedNotesTitle
-  );
-  const notes = initialNotes.filter((note) =>
+
+  const {     
+    searchedNotesTitle,
+    notesList,
+  } = useSelector((state) => state.notes);
+
+  const notes = notesList.filter((note) =>
     note.title.includes(searchedNotesTitle)
   );
 

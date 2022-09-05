@@ -11,21 +11,12 @@ import {
 export const Sidebar = () => {
   const {
     filterTitleStatus,
-    filterDataStatus,
-    initialNotes,
+    filterDataStatus,  
     searchedNotesTitle,
+    notesList,
   } = useSelector((state) => state.notes);
 
-  // const filterTitleStatus = useSelector(
-  //   (state) => state.notes.filterTitleStatus
-  // );
-  // const filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
-  // const initialNotes = useSelector((state) => state.notes.notesList);
-  // const searchedNotesTitle = useSelector(
-  //   (state) => state.notes.searchedNotesTitle
-  // );
-
-  const notes = initialNotes.filter((note) =>
+  const notes = notesList.filter((note) =>
     note.title.includes(searchedNotesTitle)
   );
 
