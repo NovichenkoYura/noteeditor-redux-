@@ -1,6 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
+// export const getNotes = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
+//   const response = await fetch (GET  localhost:3000/posts/1, {id: id, title: title, description: description, lastModified: lastModified})
+// })
+
+// const showValue = () => {
+//   console.log(inputQueryKey.value)
+//   console.log(inputQueryValue.value)
+//   fetch(`https://jsonplaceholder.typicode.com/comments?${inputQueryKey.value}=${inputQueryValue.value}`)
+//   .then(response => response.json())
+//   .then(json => {
+//     console.log(json)
+//       content.innerHTML =`
+//       <p>name: ${json[0].name}</p>
+//       <p>id: ${json[0].id}</p>
+//       <p>email: ${json[0].email}</p>
+//       <p>body: ${json[0].body}</p>
+//     `
+//   })
+// }
+
 const noteSlice = createSlice({
   name: "note",
   initialState: {
