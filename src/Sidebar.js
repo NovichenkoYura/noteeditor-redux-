@@ -9,21 +9,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Sidebar = () => {
-  const {
-    filterTitleStatus,
-    filterDataStatus,
-    initialNotes,
-    searchedNotesTitle,
-  } = useSelector((state) => state.notes);
+  const { filterTitleStatus, filterDataStatus, searchedNotesTitle } =
+    useSelector((state) => state.notes);
 
   // const filterTitleStatus = useSelector(
   //   (state) => state.notes.filterTitleStatus
   // );
   // const filterDataStatus = useSelector((state) => state.notes.filteDataStatus);
-  // const initialNotes = useSelector((state) => state.notes.notesList);
+  const initialNotes = useSelector((state) => state.notes.notesList);
   // const searchedNotesTitle = useSelector(
   //   (state) => state.notes.searchedNotesTitle
   // );
+  console.log(initialNotes);
 
   const notes = initialNotes.filter((note) =>
     note.title.includes(searchedNotesTitle)
