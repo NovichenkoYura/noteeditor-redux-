@@ -1,25 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
-// export const getNotes = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
-//   const response = await fetch (GET  localhost:3000/posts/1, {id: id, title: title, description: description, lastModified: lastModified})
+// export const getNotesThunk = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
+//   const response = await fetch(........, { id: id, title: title, description: description, lastModified: lastModified });
+//   .then(response.json);
 // })
 
-// const showValue = () => {
-//   console.log(inputQueryKey.value)
-//   console.log(inputQueryValue.value)
-//   fetch(`https://jsonplaceholder.typicode.com/comments?${inputQueryKey.value}=${inputQueryValue.value}`)
-//   .then(response => response.json())
-//   .then(json => {
-//     console.log(json)
-//       content.innerHTML =`
-//       <p>name: ${json[0].name}</p>
-//       <p>id: ${json[0].id}</p>
-//       <p>email: ${json[0].email}</p>
-//       <p>body: ${json[0].body}</p>
-//     `
-//   })
-// }
+// export const addNotesThunk = createAsyncThunk('note/addNotes', async ({ id, title, description, lastModified }) => {
+//   const response = await fetch(........., { id: id, title: title, description: description, lastModified: lastModified });
+//    return response.data;
+// })
+
+// export const delNotesThunk = createAsyncThunk('note/delNotes', async ({ id, title, description, lastModified }) => {
+//   const response = await fetch(........., { id: id, title: title, description: description, lastModified: lastModified });
+//    return response.data;
+// })
+
+// export const updNotesThunk = createAsyncThunk('note/updNotes', async ({ id, title, description, lastModified }) => {
+//   const response = await fetch(........., { id: id, title: title, description: description, lastModified: lastModified });
+//   return response.data;
+// })
+
+
 
 const noteSlice = createSlice({
   name: "note",
@@ -31,6 +33,13 @@ const noteSlice = createSlice({
     filteDataStatus: true,
     searchedNotesTitle: [],
   },
+
+  // extraReducers: (builder) => {
+  //   builder.addCase(getNotesThunk.fulfilled, (state, action) => { });
+  //   builder.addCase(addNotesThunk.fulfilled, (state, action) => { });
+  //   builder.addCase(delNotesThunk.fulfilled, (state, action) => { });
+  //   builder.addCase(updNotesThunk.fulfilled, (state, action) => { });
+  // },
 
   reducers: {
     onAddNote(state, action) {
