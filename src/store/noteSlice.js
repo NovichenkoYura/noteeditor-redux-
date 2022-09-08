@@ -10,12 +10,31 @@ export const getNotesThunk = createAsyncThunk('note/getNotes',
   });
 
   export const delNotesThunk = createAsyncThunk('note/delNotes', async (id, {dispatch}) => {
-    const response = await fetch(`http://localhost:3001/notes/${id}`, {
+    await fetch(`http://localhost:3001/notes/${id}`, {
       method: 'DELETE'
-    });
-    console.log(response)
+    });   
     dispatch(onDeleteNote({id}))
   });
+
+  
+  export const addNotesThunk = createAsyncThunk('note/addNotes', async ({ id, title, description, lastModified }, {dispatch}) => {
+    const note = {
+      id: id,
+      title: title,
+      description: description,
+      lastModified: lastModified
+    }
+    
+    const response = await fetch(`http://localhost:3001/notes/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify(note)
+    });   
+    
+    const data = await response.json()
+    dispatch(onAddNote(data))
+  });
+
 
 // export const getNotesThunk = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
 //   const response = await fetch(........, { id: id, title: title, description: description, lastModified: lastModified });
@@ -69,12 +88,13 @@ const noteSlice = createSlice({
 
   reducers: {
     onAddNote(state, action) {
-      state.notesList.push({
-        id: uuidv4(),
-        title: action.payload.title,
-        description: action.payload.description,
-        lastModified: Date.now(),
-      });
+      state.notesList.push(action.payload);
+      //       state.notesList.push({
+      //   id: uuidv4(),
+      //   title: action.payload.title,
+      //   description: action.payload.description,
+      //   lastModified: Date.now(),
+      // });
     },
 
     onDeleteNote(state, action) {
