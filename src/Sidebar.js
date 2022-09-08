@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { onCurrentItemInfo, sortTitle, sortDate } from "./store/noteSlice";
 import { SidebarRenderList } from "./SidebarRenderList";
 
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDownShortWide,

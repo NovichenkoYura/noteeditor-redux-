@@ -1,7 +1,7 @@
-import { onDeleteNote, onCurrentItemInfo } from "./store/noteSlice";
+import { delNotesThunk, onCurrentItemInfo, getNotesThunk } from "./store/noteSlice";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const SidebarRenderList = () => {
 
@@ -20,7 +20,13 @@ export const SidebarRenderList = () => {
 
   const edititemOnClick = (id) => dispatch(onCurrentItemInfo(id));
 
-  const DeleteOnNote = (id) => dispatch(onDeleteNote(id));
+
+  const DeleteOnNote = (id) => dispatch(delNotesThunk(id));
+
+   useEffect(() => {
+    dispatch(getNotesThunk());
+  }, [dispatch]);
+  
   return (
     <div className="app-sidebar-notes">
       {notes.map((note) => (
@@ -28,6 +34,7 @@ export const SidebarRenderList = () => {
           key={note.id}
           className={`app-sidebar-note ${note.id === activeNote && "active"}`}
           onClick={() => edititemOnClick(note.id)}
+
         >
           <div className="sidebar-note-title">
             <strong>{note.title !== "" && note.title}</strong>

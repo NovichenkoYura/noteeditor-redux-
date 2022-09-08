@@ -1,11 +1,16 @@
- 
- {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "aaaaaaaa",
+      "description": "bbbbbbbbb",
+      "lastModified": 1
+    },
+    {
+      "id": 3,
+      "title": "ddddddddd",
+      "description": "ddddddddddd",
+      "lastModified": 1
+    }
+  ]
 }
-

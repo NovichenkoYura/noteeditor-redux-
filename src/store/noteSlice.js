@@ -1,6 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
+export const getNotesThunk = createAsyncThunk('note/getNotes',
+  async () => {
+    const response = await fetch('http://localhost:3001/notes');
+    const data = await response.json();    
+    return (data);
+
+  });
+
+  export const delNotesThunk = createAsyncThunk('note/delNotes', async (id, {dispatch}) => {
+    const response = await fetch(`http://localhost:3001/notes/${id}`, {
+      method: 'DELETE'
+    });
+    console.log(response)
+    dispatch(onDeleteNote({id}))
+  });
+
+// export const getNotesThunk = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
+//   const response = await fetch(........, { id: id, title: title, description: description, lastModified: lastModified });
+//   .then(response.json);
+// })
+
 // export const getNotesThunk = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
 //   const response = await fetch(........, { id: id, title: title, description: description, lastModified: lastModified });
 //   .then(response.json);
@@ -32,14 +53,19 @@ const noteSlice = createSlice({
     filterTitleStatus: true,
     filteDataStatus: true,
     searchedNotesTitle: [],
+
   },
 
-  // extraReducers: (builder) => {
-  //   builder.addCase(getNotesThunk.fulfilled, (state, action) => { });
+  
+
+  extraReducers: (builder) => {
+  builder.addCase(getNotesThunk.fulfilled, (state, action) => { 
+      state.notesList = action.payload
+    });
   //   builder.addCase(addNotesThunk.fulfilled, (state, action) => { });
   //   builder.addCase(delNotesThunk.fulfilled, (state, action) => { });
   //   builder.addCase(updNotesThunk.fulfilled, (state, action) => { });
-  // },
+  },
 
   reducers: {
     onAddNote(state, action) {
@@ -97,6 +123,8 @@ const noteSlice = createSlice({
   },
 });
 
+
+
 export const {
   onAddNote,
   onDeleteNote,
@@ -107,3 +135,4 @@ export const {
   searchTitleInfo,
 } = noteSlice.actions;
 export default noteSlice.reducer;
+
