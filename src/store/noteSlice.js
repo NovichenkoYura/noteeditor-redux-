@@ -25,7 +25,7 @@ export const getNotesThunk = createAsyncThunk('note/getNotes',
       lastModified: lastModified
     }
     
-    const response = await fetch(`http://localhost:3001/notes/`, {
+    const response = await fetch(`http://localhost:3001/notes/${id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body:JSON.stringify(note)
@@ -35,32 +35,23 @@ export const getNotesThunk = createAsyncThunk('note/getNotes',
     dispatch(onAddNote(data))
   });
 
-
-// export const getNotesThunk = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
-//   const response = await fetch(........, { id: id, title: title, description: description, lastModified: lastModified });
-//   .then(response.json);
-// })
-
-// export const getNotesThunk = createAsyncThunk('note/getNotes', async ({ id, title, description, lastModified }) => {
-//   const response = await fetch(........, { id: id, title: title, description: description, lastModified: lastModified });
-//   .then(response.json);
-// })
-
-// export const addNotesThunk = createAsyncThunk('note/addNotes', async ({ id, title, description, lastModified }) => {
-//   const response = await fetch(........., { id: id, title: title, description: description, lastModified: lastModified });
-//    return response.data;
-// })
-
-// export const delNotesThunk = createAsyncThunk('note/delNotes', async ({ id, title, description, lastModified }) => {
-//   const response = await fetch(........., { id: id, title: title, description: description, lastModified: lastModified });
-//    return response.data;
-// })
-
-// export const updNotesThunk = createAsyncThunk('note/updNotes', async ({ id, title, description, lastModified }) => {
-//   const response = await fetch(........., { id: id, title: title, description: description, lastModified: lastModified });
-//   return response.data;
-// })
-
+  export const updNotesThunk = createAsyncThunk('note/updNotes', async ({ id, title, description, lastModified }, {dispatch}) => {
+    const note = {
+      id: id,
+      title: title,
+      description: description,
+      lastModified: lastModified
+    }
+    
+    const response = await fetch(`http://localhost:3001/notes/`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify(note)
+    });   
+    
+    const data = await response.json()
+    dispatch(onReplaceEditNote(data))
+  });
 
 
 const noteSlice = createSlice({
@@ -81,7 +72,7 @@ const noteSlice = createSlice({
   builder.addCase(getNotesThunk.fulfilled, (state, action) => { 
       state.notesList = action.payload
     });
-  //   builder.addCase(addNotesThunk.fulfilled, (state, action) => { });
+    builder.addCase(addNotesThunk.fulfilled, (state, action) => { state.notesList.push(action.payload)});
   //   builder.addCase(delNotesThunk.fulfilled, (state, action) => { });
   //   builder.addCase(updNotesThunk.fulfilled, (state, action) => { });
   },
@@ -142,8 +133,6 @@ const noteSlice = createSlice({
     },
   },
 });
-
-
 
 export const {
   onAddNote,

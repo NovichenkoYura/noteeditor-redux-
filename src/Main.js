@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMemo } from "react";
 
-import { addNotesThunk, onReplaceEditNote, onCurrentItemInfo } from "./store/noteSlice";
+import { addNotesThunk, updNotesThunk, onCurrentItemInfo } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect} from "react";
 
@@ -32,7 +32,7 @@ export const Main = () => {
     onSubmit: (values, {resetForm}) => {
       if (activeNote) {
         dispatch(
-          onReplaceEditNote({
+          updNotesThunk({
             title: values.title,
             description: values.description,
             id: activeNote.id,
@@ -96,7 +96,7 @@ export const Main = () => {
 
       <button
         type="submit"
-        onClick={currentEditingItem ? onReplaceEditNote : addNotesThunk}
+        onClick={currentEditingItem ? updNotesThunk : addNotesThunk}
         className="main__button"
       >
         {currentEditingItem ? "Update" : "Save"}
