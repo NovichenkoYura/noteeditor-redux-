@@ -9,33 +9,15 @@ export const getNotesThunk = createAsyncThunk('note/getNotes',
 
   });
 
-  export const delNotesThunk = createAsyncThunk('note/delNotes', async (id, {dispatch}) => {
-    await fetch(`http://localhost:3001/notes/${id}`, {
+  export const delNotesThunk = createAsyncThunk('note/delNotes', async (id) => {
+   const response = await fetch(`http://localhost:3001/notes/${id}`, {
       method: 'DELETE'
-    });   
-    dispatch(onDeleteNote({id}))
+   });   
+    return id
   });
 
   
-  export const addNotesThunk = createAsyncThunk('note/addNotes', async ({ id, title, description, lastModified }, {dispatch}) => {
-    const note = {
-      id: id,
-      title: title,
-      description: description,
-      lastModified: lastModified
-    }
-    
-    const response = await fetch(`http://localhost:3001/notes/${id}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:JSON.stringify(note)
-    });   
-    
-    const data = await response.json()
-    dispatch(onAddNote(data))
-  });
-
-  export const updNotesThunk = createAsyncThunk('note/updNotes', async ({ id, title, description, lastModified }, {dispatch}) => {
+  export const addNotesThunk = createAsyncThunk('note/addNotes', async ({ id, title, description, lastModified }) => {
     const note = {
       id: id,
       title: title,
@@ -44,13 +26,32 @@ export const getNotesThunk = createAsyncThunk('note/getNotes',
     }
     
     const response = await fetch(`http://localhost:3001/notes/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify(note)
+    });   
+    
+    const data = await response.json()
+    return data
+    
+  });
+
+  export const updNotesThunk = createAsyncThunk('note/updNotes', async ({ id, title, description, lastModified }) => {
+    const note = {
+      id: id,
+      title: title,
+      description: description,
+      lastModified: lastModified
+    }
+    
+    const response = await fetch(`http://localhost:3001/notes/${note.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body:JSON.stringify(note)
     });   
     
     const data = await response.json()
-    dispatch(onReplaceEditNote(data))
+    return data
   });
 
 
@@ -66,43 +67,52 @@ const noteSlice = createSlice({
 
   },
 
-  
-
   extraReducers: (builder) => {
   builder.addCase(getNotesThunk.fulfilled, (state, action) => { 
       state.notesList = action.payload
     });
-    builder.addCase(addNotesThunk.fulfilled, (state, action) => { state.notesList.push(action.payload)});
-  //   builder.addCase(delNotesThunk.fulfilled, (state, action) => { });
-  //   builder.addCase(updNotesThunk.fulfilled, (state, action) => { });
-  },
-
-  reducers: {
-    onAddNote(state, action) {
-      state.notesList.push(action.payload);
-      //       state.notesList.push({
-      //   id: uuidv4(),
-      //   title: action.payload.title,
-      //   description: action.payload.description,
-      //   lastModified: Date.now(),
-      // });
-    },
-
-    onDeleteNote(state, action) {
+    builder.addCase(addNotesThunk.fulfilled, (state, action) => {
+      state.notesList.push(action.payload)
+    });
+    builder.addCase(delNotesThunk.fulfilled, (state, action) => {
       state.notesList = state.notesList.filter(
         (note) => note.id !== action.payload
       );
-    },
+    });
+    builder.addCase(updNotesThunk.fulfilled, (state, action) => {
+      state.notesList = state.notesList.map((item) =>
+        item.id === action.payload.id ? action.payload : item
+      );
+     });
+  },
+
+  reducers: {
+    // onAddNote(state, action) {
+    //   state.notesList.push(action.payload);
+    //   console.log(state, action)
+    //   //       state.notesList.push({
+    //   //   id: uuidv4(),
+    //   //   title: action.payload.title,
+    //   //   description: action.payload.description,
+    //   //   lastModified: Date.now(),
+    //   // });
+    // },
+
+    // onDeleteNote(state, action) {
+    //   state.notesList = state.notesList.filter(
+    //     (note) => note.id !== action.payload
+    //   );
+    // },
 
     onCurrentItemInfo(state, action) {
       state.currentEditingItem = action.payload;
     },
 
-    onReplaceEditNote(state, action) {
-      state.notesList = state.notesList.map((item) =>
-        item.id === action.payload.id ? action.payload : item
-      );
-    },
+    // onReplaceEditNote(state, action) {
+    //   state.notesList = state.notesList.map((item) =>
+    //     item.id === action.payload.id ? action.payload : item
+    //   );
+    // },
 
     searchTitleInfo(state, action) {
       state.searchedNotesTitle = action.payload;
@@ -135,10 +145,7 @@ const noteSlice = createSlice({
 });
 
 export const {
-  onAddNote,
-  onDeleteNote,
   onCurrentItemInfo,
-  onReplaceEditNote,
   sortTitle,
   sortDate,
   searchTitleInfo,
