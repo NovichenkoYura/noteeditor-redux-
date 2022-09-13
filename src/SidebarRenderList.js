@@ -15,12 +15,8 @@ export const SidebarRenderList = () => {
   );
 
   const [activeNote, setActiveNote] = useState(false);
-
   const dispatch = useDispatch();
-
   const edititemOnClick = (id) => dispatch(onCurrentItemInfo(id));
-
-
   const DeleteOnNote = (id) => dispatch(delNotesThunk(id));
 
    useEffect(() => {

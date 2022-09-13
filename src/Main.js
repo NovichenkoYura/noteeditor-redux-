@@ -4,13 +4,18 @@ import { useMemo } from "react";
 
 import { addNotesThunk, updNotesThunk, onCurrentItemInfo } from "./store/noteSlice";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
+
+import preloader from "./img/preloader.gif"
+
 
 export const Main = () => {  
 
     const {     
     currentEditingItem,
     notesList,
+    isFetching
+    
   } = useSelector((state) => state.notes); 
 
   const activeNote = notesList.find((note) => note.id === currentEditingItem);
@@ -68,8 +73,11 @@ export const Main = () => {
 
 
   return (
+    
     <form onSubmit={formik.handleSubmit}>
+      
       <div className="formik-form">
+        {isFetching? <img src={preloader} className="preloader"/> : null}
         <label htmlFor="title">Title</label>
         <input
           id="title"

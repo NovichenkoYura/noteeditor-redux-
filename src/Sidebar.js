@@ -19,11 +19,8 @@ export const Sidebar = () => {
   );
 
   const dispatch = useDispatch();
-
   const addOnClick = () => dispatch(onCurrentItemInfo(""));
-
   const onFilterTitle = () => dispatch(sortTitle());
-
   const onFilterDate = () => dispatch(sortDate());
 
   return (
