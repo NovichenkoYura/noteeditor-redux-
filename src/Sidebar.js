@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { onCurrentItemInfo, sortTitle, sortDate } from "./store/noteSlice";
 import { SidebarRenderList } from "./SidebarRenderList";
 
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDownShortWide,
@@ -9,23 +11,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const Sidebar = () => {
-  const {
-    filterTitleStatus,
-    filterDataStatus,  
-    searchedNotesTitle,
-    notesList,
-  } = useSelector((state) => state.notes);
+  const { filterTitleStatus, filterDataStatus, searchedNotesTitle, notesList } =
+    useSelector((state) => state.notes);
 
   const notes = notesList.filter((note) =>
     note.title.includes(searchedNotesTitle)
   );
 
   const dispatch = useDispatch();
-
   const addOnClick = () => dispatch(onCurrentItemInfo(""));
-
   const onFilterTitle = () => dispatch(sortTitle());
-
   const onFilterDate = () => dispatch(sortDate());
 
   return (
