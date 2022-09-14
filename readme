@@ -1,5 +1,7 @@
  путь  данных от ввода до ренедеринга
 
+некоторіе пункті подсвеичавает желтім
+
 
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
